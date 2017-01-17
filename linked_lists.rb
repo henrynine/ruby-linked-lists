@@ -87,6 +87,29 @@ class LinkedList
     nil
   end
 
+  def insert_at(index, value)
+    v_node = Node.new(value)
+    if index == 0
+      v_node.next_node = @head
+      @head = v_node
+    else
+      preceding_node = self.at(index-1)
+      succeeding_node = self.at(index)
+      preceding_node.next_node = v_node
+      v_node.next_node = succeeding_node
+    end
+  end
+
+  def remove_at(index)
+    if index == 0
+      @head = @head.next_node
+    else
+      preceding_node = self.at(index-1)
+      succeeding_node = self.at(index+1)
+      preceding_node.next_node = succeeding_node
+    end
+  end
+
   def to_s
     current_node = @head
     as_string = String.new
