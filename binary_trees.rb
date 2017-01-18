@@ -77,5 +77,90 @@ def build_tree_from_sorted list#must be unique
   tree.insert (build_tree_from_sorted list[0..(list.length/2-1)]).head
   tree.insert (build_tree_from_sorted list[(list.length/2)..-1]).head
 
-  return tree
+  tree
 end
+
+def make_tunnel head_node
+  tunnel = Array.new
+
+  tunnel << head_node
+
+  return tunnel if head_node.left_child.nil? && head_node.right_child.nil?
+
+  if !(head_node.left_child.nil?)
+    tunnel += (make_tunnel head_node.left_child)
+  end
+
+  if !(head_node.right_child.nil?)
+    tunnel += (make_tunnel head_node.right_child)
+  end
+
+  tunnel
+end
+
+def breadth_first_search(head_node, search_value)
+  queue = make_tunnel head_node
+  queue.each do |node|
+    return node if node.value == search_value
+  end
+  nil
+end
+
+def depth_first_search(head_node, search_value)
+  stack = make_tunnel head_node
+  stack.reverse_each do |node|
+    return node if node.value == search_value
+  end
+  nil
+end
+
+def dfs_rec(head_node, search_value)
+  #base case
+  if head_node.left_child.nil? and head_node.right_child.nil?
+    return head_node if search_value == head_node.value
+    return nil
+  else #recurse
+    unless head_node.left_child.nil?
+      searched_left = dfs_rec(head_node.left_child, search_value)
+      return searched_left if !(searched_left.nil?)
+    end
+    unless head_node.right_child.nil?
+      searched_right = dfs_rec(head_node.right_child, search_value)
+      return searched_right if !(searched_right.nil?)
+    end
+  end
+  return head_node if head_node.value == search_value
+  nil
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#####
