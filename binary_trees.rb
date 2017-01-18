@@ -60,8 +60,6 @@ end
 def build_tree_from_unsorted list#ideally list contains unqiue values
   list.shuffle!
   tree = BinaryTree.new(list.shift)
-  puts "made tree: #{tree}"
-  puts "head: #{tree.head}"
   list.length.times do
     tree.insert_value list.shift
   end
@@ -69,7 +67,6 @@ def build_tree_from_unsorted list#ideally list contains unqiue values
 end
 
 def build_tree_from_sorted list#must be unique
-  puts "building from sorted: #{list}"
 
   #base case
   return BinaryTree.new(list[0]) if list.length == 1
